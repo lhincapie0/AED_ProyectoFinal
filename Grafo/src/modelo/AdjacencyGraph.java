@@ -36,7 +36,7 @@ public class AdjacencyGraph<T, U> {
 
 		}
 		
-		distance = new int[no_Vertex];
+		distance = new int[no_Vertex+1];
 	}
 	
 	
@@ -49,14 +49,57 @@ public class AdjacencyGraph<T, U> {
 	{
 		if(path.size()==1)
 		{
-			if(vertexs[w] != null)
-			{
-
+			
 				path.add(vertexs[w]);
 				
-			}
+			
 		}	
 	}
+	
+	
+	
+	
+	 public void calc(int n,int origen, int end)
+	 {
+	  int flag[] = new int[n];
+	  int i,minpos=0,k,c,minimum;
+	  
+	  path = new ArrayList<Vertex>();
+	  
+	  
+	  for(i=0;i<n;i++)
+	  {  
+	            flag[i]=0; 
+	      this.distance[i]=this.adjacencyMatrix[origen][i]; 
+	    }
+	     c=1;
+	  while(c<n)
+	  {
+	   minimum=99;
+	   for(k=0;k<n;k++)
+	   { 
+	          if(this.distance[k]<minimum && flag[k]!=1)
+	       {
+	        minimum=this.distance[i];
+	        minpos=k;
+	       }
+	      } 
+	            flag[minpos]=1;
+	      c++;
+	      for(k=0;k<n;k++)
+	 {
+	         if(this.distance[minpos]+this.adjacencyMatrix[minpos][k] <  this.distance[k] && flag[k]!=1 )
+	    this.distance[k]=this.distance[minpos]+this.adjacencyMatrix[minpos][k];
+	         if(k == end)
+				{
+					path.add(vertexs[minpos]);
+					//path.add(vertexs[k]);
+				}
+	         	
+	 }   
+	  } 
+	  reviewPath(end);
+	 }
 	
 	//Dijsktra
 	public void calculateMinimunDistance(int n, int origen, int end)
@@ -80,7 +123,7 @@ public class AdjacencyGraph<T, U> {
 		c = 1;
 		while(c<n)
 		{
-			minimum = 1000;
+			minimum = 99;
 			for(k = 0; k<n; k++)
 			{
 				if((distance[k] < minimum) && flag[k] != 1)
@@ -100,7 +143,7 @@ public class AdjacencyGraph<T, U> {
 				{
 	
 					distance[k] = distance[minimumPosition] + adjacencyMatrix[minimumPosition][k];
-				//	if(k == end)
+					if(k == end)
 					{
 						path.add(vertexs[minimumPosition]);
 						path.add(vertexs[k]);
@@ -272,8 +315,15 @@ public class AdjacencyGraph<T, U> {
 			String[] w = cad.split(" ");
 			for(int j = 0; j<n; j++)
 			{
-				int a =Integer.parseInt(w[j]);
+				
+				if((w[j].equals("0")))
+				{
+					graph.adjacencyMatrix[i][j] = 0;
+				}else
+				{int a =Integer.parseInt(w[j]);
 				graph.adjacencyMatrix[i][j] = a;
+				}
+				
 			}
 		}
 		
@@ -295,12 +345,17 @@ public class AdjacencyGraph<T, U> {
 		int v1 = graph.searchVertex(origen);
 
 		int v2 = graph.searchVertex(destino);
-		graph.calculateMinimunDistance(n, v1, v2);
-		
+		graph.calc(n, v1,v2);
 		System.out.println("PATH");
 		for(int i = 0; i<path.size(); i++) {
 			System.out.println(path.get(i).getId());
 		}
+		
+		for(int w = 0; w< n; w++)
+		{
+			System.out.println("Distance to :" + vertexs[w].getId() +"-->"+ graph.distance[w]);
+		}
+	
 	}
 	
 

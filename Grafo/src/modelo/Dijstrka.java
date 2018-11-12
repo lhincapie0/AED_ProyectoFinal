@@ -14,16 +14,16 @@ public class Dijstrka {
 	  int flag[] = new int[n+1];
 	  int i,minpos=1,k,c,minimum;
 	  
-	  for(i=1;i<=n;i++)
+	  for(i=0;i<n;i++)
 	  {  
 	            flag[i]=0; 
 	      this.distance[i]=this.cost[s][i]; 
 	     }
-	     c=2;
-	  while(c<=n)
+	     c=1;
+	  while(c<n)
 	  {
 	   minimum=99;
-	   for(k=1;k<=n;k++)
+	   for(k=0;k<n;k++)
 	   { 
 	          if(this.distance[k]<minimum && flag[k]!=1)
 	       {
@@ -33,7 +33,7 @@ public class Dijstrka {
 	      } 
 	            flag[minpos]=1;
 	      c++;
-	      for(k=1;k<=n;k++)
+	      for(k=0;k<n;k++)
 	 {
 	         if(this.distance[minpos]+this.cost[minpos][k] <  this.distance[k] && flag[k]!=1 )
 	    this.distance[k]=this.distance[minpos]+this.cost[minpos][k];
@@ -50,8 +50,8 @@ public class Dijstrka {
 	  nodes = in.nextInt();
 	  Dijstrka d = new Dijstrka();
 	  System.out.println("Enter the Cost Matrix Weights: \n");
-	        for(i=1;i<=nodes;i++)
-	          for(j=1;j<=nodes;j++)
+	        for(i=0;i<nodes;i++)
+	          for(j=0;j<nodes;j++)
 	    {
 	            d.cost[i][j]=in.nextInt();
 	            if(d.cost[i][j]==0)
