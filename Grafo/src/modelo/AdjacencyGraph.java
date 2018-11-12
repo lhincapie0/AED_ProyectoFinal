@@ -1,14 +1,20 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class AdjacencyGraph<T, U> {
 
 	public static int MAXIMUM = 1000;
-	private int[][] adjacencyMatrix;
+	public int[][] adjacencyMatrix;
 	private int no_Vertex;
-	private Vertex[] vertexs;
+	private static Vertex[] vertexs;
 	
+	
+	//for the Dijsktra algorithm
+	private int[] distance; 
+	@SuppressWarnings("rawtypes")
+	private static ArrayList<Vertex> path;
 	private int vert;
 	private int edges;
 	
@@ -29,7 +35,83 @@ public class AdjacencyGraph<T, U> {
 			}
 
 		}
+		
+		distance = new int[no_Vertex];
 	}
+	
+	
+	public int[] getDistances()
+	{
+		return distance;
+	}
+	
+	public void reviewPath(int w)
+	{
+		if(path.size()==1)
+		{
+			if(vertexs[w] != null)
+			{
+
+				path.add(vertexs[w]);
+				
+			}
+		}	
+	}
+	
+	//Dijsktra
+	public void calculateMinimunDistance(int n, int origen, int end)
+	{
+		int flag[] = new int[n];
+		path = new ArrayList<Vertex>();
+		path.add(vertexs[origen]);
+
+		int i = 0;
+		int k = 0;
+		int c = 0;
+		int minimum = 0;
+		int minimumPosition = 1;
+		
+		for( i = 0; i<n; i++)
+		{
+			flag[i] = 0;
+			distance[i] = adjacencyMatrix[origen][i];
+		}
+		
+		c = 1;
+		while(c<n)
+		{
+			minimum = 1000;
+			for(k = 0; k<n; k++)
+			{
+				if((distance[k] < minimum) && flag[k] != 1)
+				{
+					minimum = distance[i-1];
+				
+					
+
+				}
+			}
+			flag[minimumPosition] = 1 ;
+			c++;
+			
+			for(k = 0; k<n; k++)
+			{
+				if(distance[minimumPosition] + adjacencyMatrix[minimumPosition][k] < distance[k] && flag[k] != 1)
+				{
+	
+					distance[k] = distance[minimumPosition] + adjacencyMatrix[minimumPosition][k];
+				//	if(k == end)
+					{
+						path.add(vertexs[minimumPosition]);
+						path.add(vertexs[k]);
+					}
+				}
+			}
+		}
+		System.out.println(distance[end]);
+		reviewPath(end);
+	}
+	
 	
 	
 	public void addVertex(T id)
@@ -116,7 +198,7 @@ public class AdjacencyGraph<T, U> {
 	
 	
 	
-	//make a more efficent method
+	
 	public int searchVertex(T v)
 	{
 		int vf = -1;
@@ -147,6 +229,7 @@ public class AdjacencyGraph<T, U> {
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	public ArrayList<Vertex> getSucesors(T v)
 	{
 		ArrayList<Vertex> ad = new ArrayList<>();
@@ -159,56 +242,75 @@ public class AdjacencyGraph<T, U> {
 			}
 		}
 		
+		
+		for(int i = 0; i<ad.size(); i++)
+		{
+			System.out.println( ad.get(i).getId());
+		}
 		return ad;
 		
 	}
 	
 	
-	public int[] dijkstra(int source) 
-	{ 
-		boolean visited[] = new boolean[no_Vertex];
-		int[] distance = new int[no_Vertex];
+	public static void main(String[] args) 
+	{
+	
+		Scanner in = new Scanner(System.in);
+		System.out.println("Ingrese el numero de nodos");
+		int n = in.nextInt();
+		AdjacencyGraph<String, Integer > graph = new AdjacencyGraph<>(n);
+		in.nextLine();
+		for(int i = 0; i<n;i++)
+		{
+			vertexs[i] = new Vertex<String>(in.nextLine());
+		}
+		
+		System.out.println("Ingrese la matriz con las distancias respectivas");	
+		for(int i = 0; i<n;i++)
+		{
+			String cad = in.nextLine();
+			String[] w = cad.split(" ");
+			for(int j = 0; j<n; j++)
+			{
+				int a =Integer.parseInt(w[j]);
+				graph.adjacencyMatrix[i][j] = a;
+			}
+		}
+		
+
+		for(int i = 0; i<graph.adjacencyMatrix.length; i++)
+		{
+			for(int j = 0; j< graph.adjacencyMatrix[0].length;j++)
+			{
+				System.out.print(graph.adjacencyMatrix[i][j] + " ");
+			}
+			System.out.println();
+		}
+		System.out.println("Ingrese un origen");
+		String origen = in.nextLine();
+
+		System.out.println("Ingrese un destino");
+		String destino = in.nextLine();
+		
+		int v1 = graph.searchVertex(origen);
+
+		int v2 = graph.searchVertex(destino);
+		graph.calculateMinimunDistance(n, v1, v2);
+		
+		System.out.println("PATH");
+		for(int i = 0; i<path.size(); i++) {
+			System.out.println(path.get(i).getId());
+		}
+	}
+	
 
 	
-		for(int i = 0;i<no_Vertex; i++)
-		{
-			distance[i] = MAXIMUM;
-			visited[i] = false;
-		}
-		distance[source] = 0;	
-		for(int counter = 0; counter < no_Vertex-1; counter++)
-		{
-			int picked = minimunDistance(distance, visited);
-			
-			visited[picked] = true;
-			
-			 for (int v = 0; v < no_Vertex; v++) 
-				  
-	                if (!visited[v] && adjacencyMatrix[picked][v]!=0 && 
-	                        distance[picked] != Integer.MAX_VALUE && 
-	                        distance[v]+adjacencyMatrix[picked][v] < distance[v]) 
-	                    distance[v] = distance[picked] + adjacencyMatrix[picked][v]; 
-		}
-		
-		return distance;
-	}
 	
-	public int minimunDistance(int[] distance, boolean[] visited)
-	{
-		int min = MAXIMUM;
-		int min_index=-1; 
-		  
-        for (int v = 0; v < no_Vertex; v++) 
-            if (visited[v] == false && distance[v] <= min) 
-            { 
-                min = distance[v]; 
-                min_index = v; 
-            } 
-  
-        return min_index; 
-		
-	}
+	
+	
+
 	
 	
 	
 }
+

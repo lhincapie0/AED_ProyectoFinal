@@ -1,14 +1,13 @@
 package modelo;
 
-
+import java.util.ArrayList;
 
 //GRAFO NO DIRIGIDO CON PONDERACION
 public class ListGraph<T,U> {
 
 	
 	// https://github.com/anvicordova/Estructura-de-Datos/blob/master/Grafo%20Dirigido%20con%20Listas%20de%20Adyacencia/src/Grafo.java
-	@SuppressWarnings("rawtypes")
-	private Node[] graph;
+	private Node<T>[] graph;
 	private int no_Vertex;
 	private int vert;
 	private int edges;
@@ -46,7 +45,7 @@ public class ListGraph<T,U> {
 			}
 		return found;
 	}
-	
+
 	
 	//If you are adding a vertex the value has to be 0
 	
@@ -90,6 +89,14 @@ public class ListGraph<T,U> {
 			}
 		}
 	
+	public void deleteVertex(T v)
+	{
+		int vertex = searchVertex(v);
+		if(vertex >-1)
+		{
+			graph[vertex] = null;
+		}
+	}
 	
 	public int searchVertex(T vertex)
 	{
@@ -118,21 +125,28 @@ public class ListGraph<T,U> {
 		return edges;
 	}
 	
-	
-	public static void main(String[] args)
+	public ArrayList<Node> getSucesors(T vertex)
 	{
-		ListGraph<String, Integer>graph = new ListGraph<>(4);
-		graph.addVertex("Cali");
-		graph.addVertex("Bogota");
-		graph.addVertex("Santa Marta");
-		graph.addVertex("Barranquilla");
-		graph.addEdge("Cali", "Bogota", 30);
-		graph.addEdge("Cali", "Barranquilla", 80);
-		graph.addEdge("Cali", "Santa Marta", 100);
-		graph.addEdge("Bogota", "Cali", 30);
-		graph.addEdge("Bogota", "Santa Marta", 20);
-		System.out.println("puta");
-		System.out.println(graph.isEdge("Bogota", "Cali"));
+		ArrayList<Node> ad = new ArrayList<>();
+		
+		int v = searchVertex(vertex);
+		
+		
+		Node<T> actual = graph[v];
+		while(actual.getNext()!= null)
+		{
+			ad.add(actual.getNext());
+			actual = actual.getNext();
+		}
+		
+		for(int i = 0; i<ad.size();i++)
+		{
+			System.out.println(ad.get(i).getVertex());	
+		}
+		
+		return ad;
 	}
+	
+	
 	
 }

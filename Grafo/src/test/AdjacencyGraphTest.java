@@ -2,11 +2,16 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
 import modelo.AdjacencyGraph;
 import modelo.Graph;
+import modelo.Node;
+import modelo.Vertex;
 
 public class AdjacencyGraphTest {
 
@@ -47,6 +52,52 @@ public class AdjacencyGraphTest {
 		graph = new AdjacencyGraph<String, Integer>(5);
 		
 	}
+	
+	public void setUp4()
+	{
+		graph = new AdjacencyGraph<String, Integer>(6);
+		graph.addVertex("A");
+		graph.addVertex("B");
+		graph.addVertex("C");
+		graph.addVertex("D");
+		graph.addVertex("E");
+		graph.addVertex("F");
+		graph.addEdge("A", "B", 5);
+		graph.addEdge("A", "F", 10);
+		graph.addEdge("A", "E", 7);
+		graph.addEdge("B", "A", 5);
+		graph.addEdge("F", "A", 10);
+		graph.addEdge("E", "A", 7);
+		graph.addEdge("C", "D", 3);
+		graph.addEdge("C", "F", 2);
+		graph.addEdge("D", "C", 3);
+		graph.addEdge("F", "C", 2);
+		graph.addEdge("E", "B", 8);	
+		graph.addEdge("B", "E", 8);
+		
+	}
+	
+	public void setUp5()
+	{
+		graph = new AdjacencyGraph<String, Integer>(4);
+		graph.addVertex("A");
+		graph.addVertex("B");
+		graph.addVertex("C");
+		graph.addVertex("D");	
+		graph.adjacencyMatrix[0][1] = 3;
+		graph.adjacencyMatrix[0][2] = 999;
+		graph.adjacencyMatrix[0][3] = 7;
+		graph.adjacencyMatrix[1][0] = 3;
+		graph.adjacencyMatrix[1][2] = 4;
+		graph.adjacencyMatrix[1][3] = 2;
+		graph.adjacencyMatrix[2][0] = 999;
+		graph.adjacencyMatrix[2][1] = 4;
+		graph.adjacencyMatrix[2][3] = 5;
+		graph.adjacencyMatrix[3][0] = 7;
+		graph.adjacencyMatrix[3][1] = 2;
+		graph.adjacencyMatrix[3][2] = 5;
+	}
+	
 	@Test
 	public void addVertexTest()
 	{
@@ -115,7 +166,47 @@ public class AdjacencyGraphTest {
 	{
 		setUp2();
 		assertEquals(graph.searchEdge("Bogota", "Cali"),30);
+	}
+	
+
+	
+	
+	
+	//HACER DISEÑO DE ESTAS PRUEBAS
+	@Test
+	public void getSucesorsTest()
+	{
+		setUp4();
+		String[] expectedSucesors  = {"B", "E","F"};
+		ArrayList<Vertex> nodes = graph.getSucesors("A");
+		int[] b = graph.getDistances();
+		
+		
+		String a1 = (String) nodes.get(0).getId();
+		assertTrue(expectedSucesors[0].equals((a1)));
+
+		String a2 = (String) nodes.get(1).getId();
+		assertTrue(expectedSucesors[1].equals((a2)));
+
+		String a3 = (String) nodes.get(2).getId();
+		assertTrue(expectedSucesors[2].equals((a3)));
 		
 	}
 	
+	
+	@Test
+	public void calculateMinimunDistanceTest()
+	{
+		setUp5();
+		int[] expectedDistances = {0,3,7,5};
+		graph.calculateMinimunDistance(4, 0,2);
+		int[] b = graph.getDistances();
+		
+		for(int i = 0; i<b.length; i++)
+		{
+			assertTrue(b[i] == expectedDistances[i]);
+		}
+
+	}
 }
+
