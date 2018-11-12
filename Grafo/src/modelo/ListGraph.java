@@ -7,7 +7,7 @@ public class ListGraph<T,U> {
 
 	
 	// https://github.com/anvicordova/Estructura-de-Datos/blob/master/Grafo%20Dirigido%20con%20Listas%20de%20Adyacencia/src/Grafo.java
-	private Node<T>[] graph;
+	 private Node<T>[] graph;
 	private int no_Vertex;
 	private int vert;
 	private int edges;
