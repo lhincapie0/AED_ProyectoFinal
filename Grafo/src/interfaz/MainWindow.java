@@ -16,7 +16,7 @@ public class MainWindow extends JFrame{
 	public MainWindow()
 	{
 		this.setTitle("EURORAIL");
-		this.setSize(500, 500);
+		this.setSize(800, 800);
 		this.setBackground(Color.WHITE);
 		this.setLayout(new BorderLayout());
 		mainContainer = new MainContainer(this);
