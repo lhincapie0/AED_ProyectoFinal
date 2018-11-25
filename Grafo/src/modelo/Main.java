@@ -48,20 +48,42 @@ public class Main {
 		readNodes();
 		readEdges();
 
-		
-		
-		calculateShortestPath("Bergen", "Budapest");
-		
-		ArrayList<String> ss = getJourney();
-		
-		for(int i = 0; i<ss.size(); i++)
+
+	}
+	
+	public void changeGraphRepresentation()
+	{
+		if(actualGraph.equals(LIST))
 		{
-			System.out.println(ss.get(i));
+			actualGraph = MATRIX;
+		} else 
+		{
+			actualGraph = LIST;
 		}
 	}
 	
 	
+	public ArrayList<String> getNodes()
+	{
+		ArrayList<String> nodes;
+		
+		if(actualGraph.equals(LIST))
+		{
+			nodes = list.getNodes();
+		} else 
+		{
+			nodes = matrix.getNodes();
+		}
+		
+		return nodes;
+	}
 
+
+	public String getGraphRepresentation()
+	{
+		return actualGraph;
+	}
+	
 	/**
 	 * Reads a file with all the cities that are needed in the map
 	 * @param none
@@ -135,13 +157,7 @@ public class Main {
 
 		}
 		
-		//for(int i = 0; i<path.getPath().size();i++)
-		//{
-		//names.add(path.getPath().get(i));
-		//System.out.println(path.getPath().get(i));
-		//System.out.println(path.getDistance());
-		//}
-		
+
 		return names;
 	}
 	
@@ -184,10 +200,6 @@ public class Main {
 		return edges;
 	}
 	
-	public static void main(String[] args) throws Exception
-	{
-		Main m = new Main();
-	}
 	
 	
 }

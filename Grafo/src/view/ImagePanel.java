@@ -1,4 +1,4 @@
-package interfaz;
+package view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -22,11 +22,18 @@ public class ImagePanel extends JPanel {
 	public void paint(Graphics g)
 	{
 		super.paint(g);
-		ImageIcon i1 = new ImageIcon("Images/image1.jpg");
-		g.drawImage(i1.getImage(),0, 0, 400,300,this);
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0,2000,2000);
+		g.setColor(Color.black);
+		ImageIcon i1 = new ImageIcon("Images/Eurail_RGB.png");
+		g.drawImage(i1.getImage(),200, 200, 300,300,this);
 		g.setFont(new Font("Harlow Solid Italic",Font.BOLD, 28));
 		g.setColor(Color.WHITE);
-		g.drawString("Quienes somos??", 30, 30);
+		
+		ImageIcon i2 = new ImageIcon("Images/EurailMapBasic.jpeg");
+		g.drawImage(i2.getImage(),600, 50, 1000,800,this);
+		
+		
 
 	}
 }
