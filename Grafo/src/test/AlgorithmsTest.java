@@ -18,18 +18,20 @@ import structure.ListGraph;
 import structure.MatrixGraph;
 import structure.Algorithms;
 import structure.AuxDijkstra;
+import structure.Edge;
 import structure.Graph;
 
 
-public class MenuTest {
+public class AlgorithmsTest {
 	
 	private Graph<String> matrixGraph;
 	private Graph<String> listGraph;
+	private Graph<String> graph;
 	private Algorithms<String> menu;
 	
 	
 	
-	public MenuTest() throws Exception
+	public AlgorithmsTest() throws Exception
 	{
 		menu = new Algorithms<String>();
 	}
@@ -131,6 +133,49 @@ public class MenuTest {
 		matrixGraph.addEdge("C","F",40);
 		
 	}
+
+	public void setUp6()
+	{
+		graph = new ListGraph<String>(false,true);
+		graph.addNode("1");
+		graph.addNode("2");
+		graph.addNode("3");
+		graph.addNode("6");
+		graph.addNode("8");
+		graph.addNode("4");
+		graph.addNode("11");
+		graph.addEdge("1", "3", 2);
+		graph.addEdge("3", "1", 7);
+		graph.addEdge("1", "2", 5);
+		graph.addEdge("2", "3", 10);
+		graph.addEdge("11", "8", 10);
+		graph.addEdge("1", "8", 1);
+		graph.addEdge("8", "2", 6);
+		graph.addEdge("4", "3", 3);
+		graph.addEdge("11", "4", 12);
+		graph.addEdge("4", "8", 19);
+		graph.addEdge("3", "6", 5);
+	}
+	
+	@Test
+	public void KruskalTest()
+	{
+		setUp6();
+	
+		Graph<String> minGraph = 	menu.Kruskal(graph,"Graph by List");
+		ArrayList<Edge<String>> edges = minGraph.getEdges();
+		int peso = 0;
+		for (int i = 0; i < edges.size(); i++) {
+
+			peso += edges.get(i).getWeigth();
+		}
+
+		assertTrue(peso == 52);
+		
+		
+	}
+	
+	
 	//List Graph
 	@Test
 	public void BFSTest() throws NodeNotFoundException
@@ -197,6 +242,31 @@ public class MenuTest {
 	}
 	
 	
+	//Test for Matrix
+	@Test
+	public void DijkstraAlgorithmTest1() throws Exception
+	{
+		
+		setUp5();
+		
+		ArrayList<String> expected = new ArrayList();
+			
+		expected.add("A");
+		expected.add("B");
+		expected.add("D");
+		expected.add("E");
+		expected.add("F");
+		AuxDijkstra<Integer,List<String>> path = menu.DijkstraAlgorithm(matrixGraph,"A","F");
+		
+		for(int i = 0; i<expected.size(); i++){
+			assertTrue(path.getPath().get(i).equals(expected.get(i)));
+		}
+
+		
+	}
+	
+
+
 	//Test for ListGraph
 	@Test
 	public void DijkstraAlgorithmTest() throws Exception
@@ -219,29 +289,7 @@ public class MenuTest {
 
 		
 	}
-	
-	//Test for Matrix
-		@Test
-		public void DijkstraAlgorithmTest1() throws Exception
-		{
-			
-			setUp5();
-			
-			ArrayList<String> expected = new ArrayList();
-				
-			expected.add("A");
-			expected.add("B");
-			expected.add("D");
-			expected.add("E");
-			expected.add("F");
-			AuxDijkstra<Integer,List<String>> path = menu.DijkstraAlgorithm(matrixGraph,"A","F");
-			
-			for(int i = 0; i<expected.size(); i++){
-				assertTrue(path.getPath().get(i).equals(expected.get(i)));
-			}
-
-			
-		}
+		
 	
 	
 	

@@ -5,7 +5,7 @@ public class AuxDijkstra<M, N> {
 	public M distance;
 	public N path;
 
-		  public AuxDijkstra( M left, N right) {
+		  public AuxDijkstra( M distance, N path) {
 		    this.distance = distance;
 		    this.path = path;
 		  }

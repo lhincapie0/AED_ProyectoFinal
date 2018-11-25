@@ -10,6 +10,7 @@ import java.util.List;
 import Exception.NodeNotFoundException;
 import structure.Algorithms;
 import structure.AuxDijkstra;
+import structure.Graph;
 import structure.ListGraph;
 import structure.MatrixGraph;
 
@@ -50,6 +51,13 @@ public class Main {
 		
 		
 		calculateShortestPath("Bergen", "Budapest");
+		
+		ArrayList<String> ss = getJourney();
+		
+		for(int i = 0; i<ss.size(); i++)
+		{
+			System.out.println(ss.get(i));
+		}
 	}
 	
 	
@@ -110,6 +118,9 @@ public class Main {
 	}
 	
 	
+	
+	
+	
 	public ArrayList<String> calculateShortestPath(String origen, String destiny) throws Exception
 	{
 		AuxDijkstra<Integer,List<String>> path;
@@ -124,12 +135,12 @@ public class Main {
 
 		}
 		
-		for(int i = 0; i<path.getPath().size();i++)
-		{
-			names.add(path.getPath().get(i));
-			System.out.println(path.getPath().get(i));
-			System.out.println(path.getDistance());
-		}
+		//for(int i = 0; i<path.getPath().size();i++)
+		//{
+		//names.add(path.getPath().get(i));
+		//System.out.println(path.getPath().get(i));
+		//System.out.println(path.getDistance());
+		//}
 		
 		return names;
 	}
@@ -148,6 +159,29 @@ public class Main {
 		}
 		
 		return path.getDistance();
+	}
+	
+	public ArrayList<String> getJourney()
+	{
+		
+		Graph<String> graph;
+		if(actualGraph == LIST)
+		{
+			graph = menu.Kruskal(list, LIST);
+		}else {
+
+			graph = menu.Kruskal(list, MATRIX);
+		}
+		
+		
+		ArrayList<String> edges = new ArrayList<>();
+		
+		for(int i = 0; i<graph.getEdges().size();i++)
+		{
+			edges.add(graph.getEdges().get(i).getNode1() + "  --->" +graph.getEdges().get(i).getNode2());
+		}
+		
+		return edges;
 	}
 	
 	public static void main(String[] args) throws Exception
