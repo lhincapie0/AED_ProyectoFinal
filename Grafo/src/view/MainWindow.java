@@ -72,8 +72,14 @@ public class MainWindow extends JFrame {
 	{
 		
 		//TO DO
-		String[] adjacents = new String[10];
-		System.out.println(city);
+		ArrayList<String> adj = main.getAdyacents(city);
+		String[] adjacents = new String[adj.size()];
+
+		
+		for(int i = 0; i<adj.size();i++)
+		{
+			adjacents[i] = adj.get(i);
+		}
 		return adjacents;
 	}
 	

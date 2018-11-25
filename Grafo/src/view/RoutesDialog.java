@@ -30,9 +30,12 @@ public class RoutesDialog extends JDialog implements ActionListener {
 	private JButton routes;
 	private MainWindow mainWindow;
 	private JList<String> cities;
+	private DefaultListModel<String>  listModel;
+
+	private JList<String> citiesAdjacents;
+	private DefaultListModel<String>  listModel2;
 	private JPanel listPanel; 
 	private JPanel listAdjacentsPanel;
-	private DefaultListModel<String>  listModel;
 	
 	private JLabel actualGraphLab;
 	private JButton changeGraphBut;
@@ -40,7 +43,7 @@ public class RoutesDialog extends JDialog implements ActionListener {
 	
 	private int actualIndex;
 	private String actualCity;
-
+	private Font fuente = new Font("Ink Free", Font.BOLD, 20);
 
 	
 	public RoutesDialog(MainWindow mainWindow)
@@ -50,7 +53,7 @@ public class RoutesDialog extends JDialog implements ActionListener {
 		 this.mainWindow = mainWindow;
 		 setLayout(new BorderLayout());
 		 this.setBackground(Color.WHITE);
-		 Font fuente = new Font("Ink Free", Font.BOLD, 20);
+		
 		 Color colorLetra = new Color (30,144,205);
 		 
 		 JPanel title = new JPanel((LayoutManager) new FlowLayout(FlowLayout.CENTER));
@@ -138,25 +141,57 @@ public class RoutesDialog extends JDialog implements ActionListener {
 				
 			}
 		});
+		String[] citiesad = mainWindow.showAdjacents("Amsterdam");
+		listModel2 = new DefaultListModel<>();
+		if(citiesad != null)
+		{
+			for(int i = 0; i<citiesad.length;i++)
+			{
+				listModel2.addElement(citiesad[i]);
+		}
+	}
+		
+		citiesAdjacents = new JList<String>(listModel2);
+		citiesAdjacents.setFont(fuente);
+		listPanel.add(citiesAdjacents);
 		
 		this.add(listPanel,BorderLayout.CENTER);
 	
 		
 	}
 
+	
+	
+	
+	public void showAdjacents(String[] adj)
+	{
+		String[] citiesNames = adj;
+		if(citiesNames != null)
+		{
+			for(int i = 0; i<citiesNames.length;i++)
+			{
+				listModel2.addElement(citiesNames[i]);
+			}
+		}
+	
+	}
 	@Override
 	public void actionPerformed(ActionEvent command) {
 
 		
 		if(command.getActionCommand().equals(ROUTES))
 		{
-			mainWindow.showAdjacents(actualCity);
+			
+			listModel2.removeAllElements();
+			showAdjacents(mainWindow.showAdjacents(actualCity));
 		}
 		if(command.getActionCommand().equals(CHANGE))
 		{
 			mainWindow.changeGraphRepresentation();
 			String actual = mainWindow.getGraphRepresentation();
 			actualGraphTxt.setText(actual);
+			listModel.addElement(actual);
+			
 		}
 		
 	}
