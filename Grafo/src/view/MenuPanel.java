@@ -23,12 +23,15 @@ public class MenuPanel extends JPanel implements ActionListener{
 	public static final String MAPA = "mapa";
 	public static final String RUTAS = "rutas";
 	public static final String PLANIFICAR = "planificar";
+	public static final String LISTAR = "listar";
 	
 	private MainWindow mainWindow;
 	private JButton mapaBut;
 	private JButton rutasBut;
 	private JButton planificarBut;
+	private JButton listarBut;
 	
+
 
 
 	
@@ -40,10 +43,10 @@ public class MenuPanel extends JPanel implements ActionListener{
 		this.setBackground(Color.white);
 
 	
-		this.setLayout(new GridLayout(1, 3,5,0));
+		this.setLayout(new GridLayout(1, 4,2,0));
 		
 		Font fuente = new Font("Ink Free", Font.BOLD, 18);
-		Font fuente2 = new Font("Ink Free", Font.PLAIN, 30);
+		Font fuente2 = new Font("Ink Free", Font.PLAIN, 25);
 		Color colorLetra = new Color (30,144,205);
 	
 		TitledBorder border = new TitledBorder("MENU");
@@ -65,9 +68,16 @@ public class MenuPanel extends JPanel implements ActionListener{
 	    planificarBut = new JButton("Planificar mi viaje en el menor tiempo");
 	    planificarBut.setActionCommand(PLANIFICAR);
 	    planificarBut.addActionListener(this);
-		  
+
+	    listarBut = new JButton("Listar ciudades que puedes visitar");
+	    listarBut.setActionCommand(LISTAR);
+	    listarBut.addActionListener(this);  
+	    
+	    
 		mapaBut.setFont(fuente2);
 		mapaBut.setForeground(colorLetra);
+		listarBut.setFont(fuente2);
+		listarBut.setForeground(colorLetra);
 		rutasBut.setFont(fuente2);	
 		rutasBut.setForeground(colorLetra);
 		planificarBut.setFont(fuente2);
@@ -75,10 +85,13 @@ public class MenuPanel extends JPanel implements ActionListener{
 		mapaBut.setBorder(BorderFactory.createBevelBorder(20));
 		rutasBut.setBorder(BorderFactory.createBevelBorder(20));
 		planificarBut.setBorder(BorderFactory.createBevelBorder(20));
+		listarBut.setBorder(BorderFactory.createBevelBorder(20));
+
 		
 	    this.add(mapaBut);
 	    this.add(rutasBut);
 	    this.add(planificarBut);
+	    this.add(listarBut);
 		
 	}
 
@@ -101,6 +114,11 @@ public class MenuPanel extends JPanel implements ActionListener{
 		if(command.getActionCommand().equals(PLANIFICAR))
 		{
 			mainWindow.calculatePath();
+		}
+		
+		if(command.getActionCommand().equals(LISTAR))
+		{
+			mainWindow.showList();
 		}
 	}
 }

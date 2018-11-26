@@ -55,16 +55,17 @@ public class MapDialog extends JDialog implements MouseListener {
 			g.setColor(Color.orange);
 		for(int i = 0; i<edges.size();i++)
 		{
+		
 			int x1 = edges.get(i).getX1();
 			int x2 = edges.get(i).getX2();
 			int y1 = edges.get(i).getY1();
 			int y2 = edges.get(i).getY2();
 		
 			g.drawLine(x1,y1,x2,y2);
-			g.drawLine(x1-1,y1,x2-1,y2);
-			g.drawLine(x1+2,y1,x2+2,y2);
+			g.drawLine(x1-1,y1-1,x2-1,y2-1);
+			g.drawLine(x1+2,y1+2,x2+2,y2+2);
 
-			g.drawLine(x1+1,y1,x2+1,y2);
+			g.drawLine(x1+1,y1+1,x2+1,y2+1);
 
 		}
 		

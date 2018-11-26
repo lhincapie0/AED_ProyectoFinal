@@ -47,11 +47,33 @@ public class Main {
 		readNodes();
 		readEdges();
 
-
+		ArrayList<String> g = menu.BFS(list, "Berlin");
+		for(int i = 0; i<g.size();i++)
+		{
+			System.out.println(g.get(i));
+		}
+		
+		
+		
 	}
 	
+	//opcion 0 DFS
+	//opcion 1 BFS
+	//opcion 0 List
+	//opcion 1 Graph
 	
+	@SuppressWarnings("unchecked")
+	public ArrayList<String> getAllCities(int opcion, int graph, String origen ) throws NodeNotFoundException
+	{
+		ArrayList<String> listM = new ArrayList<>();
+		System.out.println(origen);
+		listM = menu.BFS((Graph) list, "Berlin");
 
+		for(int i = 0; i<listM.size(); i++)
+		{
+			System.out.println(listM.get(i));
+		}		return listM;
+	}
 	
 	public void changeGraphRepresentation()
 	{
@@ -238,6 +260,11 @@ public class Main {
 		{
 			edges.add(graph.getEdges().get(i).getNode1() + "  --->" +graph.getEdges().get(i).getNode2());
 		}
+		
+		for( int i = 0; i<edges.size(); i++)
+			{
+			System.out.println(edges.get(i));
+			}
 		
 		return edges;
 	}

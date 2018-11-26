@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Exception.NodeNotFoundException;
 import structure.Edge;
 import structure.Main;
 import structure.Node;
@@ -58,7 +59,13 @@ public class MainWindow extends JFrame {
 				return nodes;	
 	}
 	
-	
+	public ArrayList<String> getList(int type, int graph, String origen) throws NodeNotFoundException
+	{
+		ArrayList<String> list =main.getAllCities(type, graph, origen);
+		System.out.println(list.get(0));
+		System.out.println(list.get(0));
+		return list;
+	}
 	
 	public ArrayList<EdgeView> getEdgesData()
 	{
@@ -67,7 +74,12 @@ public class MainWindow extends JFrame {
 		return edgesXY;
 	}
 	
-	
+	public void showList()
+	{
+		ListDialog d = new ListDialog(this);
+		d.setVisible(true);
+		d.setLocationRelativeTo(this);
+	}
 	public void showMap() {
 		
 		MapDialog d = new MapDialog(this);
