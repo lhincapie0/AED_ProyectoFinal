@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.Stack;
 
 import Exception.NodeNotFoundException;
-import modelo.Main;
 
 public class Algorithms<T> {
 
@@ -181,7 +180,7 @@ public class Algorithms<T> {
 	
 	
 	
-	public Graph<T> Kruskal(Graph<T> graph, String type)
+	public Graph<T> Kruskal(Graph<T> graph, String type)  
 	{
 		
 		

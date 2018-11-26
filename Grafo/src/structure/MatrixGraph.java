@@ -162,7 +162,7 @@ public class MatrixGraph<T> implements Graph<T>{
 	}
 
 	@Override
-	public ArrayList getEdges() {
+	public ArrayList<Edge<T>> getEdges() {
 		return edges;
 	}
 

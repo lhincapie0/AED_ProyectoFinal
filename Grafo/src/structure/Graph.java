@@ -9,7 +9,7 @@ public interface Graph<T> {
 	
 	public boolean isDirected();
 	public void addNode(T node);
-	public void addEdge(T node1, T node2, int weight);
+	public void addEdge(T node1, T node2, int weight)  ;
 	public Node<T>  searchNode(T node) throws NodeNotFoundException;
 	public Edge<T> searchEdge(T node1, T node2);
 

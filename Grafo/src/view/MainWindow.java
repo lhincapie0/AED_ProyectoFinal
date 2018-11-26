@@ -13,7 +13,9 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import modelo.Main;
+import structure.Edge;
+import structure.Main;
+import structure.Node;
 public class MainWindow extends JFrame {
 	
 	
@@ -49,6 +51,21 @@ public class MainWindow extends JFrame {
 
 	}
 	
+	
+	public ArrayList<Node<String>> getNodesData()
+	{
+		ArrayList<Node<String>> nodes = main.getNodesData();
+				return nodes;	
+	}
+	
+	
+	
+	public ArrayList<EdgeView> getEdgesData()
+	{
+		ArrayList<EdgeView> edgesXY = main.getEdgesData();
+		
+		return edgesXY;
+	}
 	
 	
 	public void showMap() {
@@ -116,6 +133,8 @@ public class MainWindow extends JFrame {
 		}
 		return adjacents;
 	}
+	
+	
 	
 	
 	public String[] getCitiesNames()

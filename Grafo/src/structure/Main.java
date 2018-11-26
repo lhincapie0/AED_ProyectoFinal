@@ -1,4 +1,4 @@
-package modelo;
+package structure;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,12 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Exception.NodeNotFoundException;
-import structure.Algorithms;
-import structure.AuxDijkstra;
-import structure.Graph;
-import structure.ListGraph;
-import structure.MatrixGraph;
-import structure.Node;
+import view.EdgeView;
 
 
 
@@ -35,6 +30,7 @@ public class Main {
 	private MatrixGraph matrix;
 	private Algorithms menu;
 	private String actualGraph;
+	private ArrayList<EdgeView> edgesXY;
 	
 	
 	public Main() throws Exception
@@ -46,11 +42,16 @@ public class Main {
 		matrix = new MatrixGraph<String>(false, true, 65);
 		menu = new Algorithms<String>();
 
+		
+	 edgesXY = new ArrayList<>();
 		readNodes();
 		readEdges();
 
 
 	}
+	
+	
+
 	
 	public void changeGraphRepresentation()
 	{
@@ -111,14 +112,21 @@ public class Main {
 	}
 	
 
+	public ArrayList<EdgeView> getEdgesData()
+	{
+		return edgesXY;
+	}
+	
 	/**
 	 * Reads a file with all the edges that are needed in the map
 	 * @param none
 	 * @return none
+	 * @throws NodeNotFoundException 
 	 */
-	public void readEdges() throws IOException
+	public void readEdges() throws IOException, NodeNotFoundException
 	{
 
+		
 		BufferedReader bf = new BufferedReader(new FileReader(new File("Data/Edges")));
 		String edge;
 		while((edge = bf.readLine())!=null) {
@@ -127,6 +135,14 @@ public class Main {
 			matrix.addEdge(data[0],data[1], weight);
 			list.addEdge(data[0],data[1], weight);
 
+			Node<String> n1 = matrix.searchNode(data[0]);
+			Node<String> n2 = matrix.searchNode(data[1]);
+			
+			EdgeView ev = new EdgeView(n1.getX(), n2.getX(), n1.getY(), n2.getY());
+			edgesXY.add(ev);
+			
+
+			
 			
 		}			
 		
@@ -203,7 +219,7 @@ public class Main {
 		return path.getDistance();
 	}
 	
-	public ArrayList<String> getJourney()
+	public ArrayList<String> getJourney() throws NodeNotFoundException
 	{
 		
 		Graph<String> graph;

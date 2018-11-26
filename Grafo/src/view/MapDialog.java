@@ -7,6 +7,7 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -15,9 +16,13 @@ import javax.swing.JPanel;
 import com.sun.javafx.geom.Line2D;
 import com.sun.prism.BasicStroke;
 
+import structure.Node;
+
 public class MapDialog extends JDialog implements MouseListener {
 	
 	private MainWindow mainWindow;
+	private ArrayList<Node<String>> nodes;
+	private ArrayList<EdgeView> edges ;
 	
 	public MapDialog(MainWindow mainWindow) 
 	{
@@ -25,6 +30,8 @@ public class MapDialog extends JDialog implements MouseListener {
 		this.mainWindow = mainWindow;
 		this.setSize(1200,900);
 		addMouseListener(this);
+		nodes = mainWindow.getNodesData();
+		edges = mainWindow.getEdgesData();
 	}
 
 	
@@ -36,13 +43,33 @@ public class MapDialog extends JDialog implements MouseListener {
 		g.drawImage(i1.getImage(),0, 0, this.getWidth(),this.getHeight(),this);
 	
 		g.setColor(Color.BLUE);
-		g.fillOval(160, 680,15,15);
 		
-		g.fillOval(176, 736,15,15);
-		g.drawLine(158, 680, 174, 736);
-		g.drawLine(159, 680, 175, 736);
-		g.drawLine(160, 680, 176, 736);g.drawLine(161, 681, 177, 737);
-		g.drawLine(162, 680, 178, 736);
+		for(int i = 0; i<nodes.size();i++)
+		{
+			int x = nodes.get(i).getX();
+			int y = nodes.get(i).getY();
+			g.fillOval(x, y,15,15);
+
+		}
+		
+			g.setColor(Color.orange);
+		for(int i = 0; i<edges.size();i++)
+		{
+			int x1 = edges.get(i).getX1();
+			int x2 = edges.get(i).getX2();
+			int y1 = edges.get(i).getY1();
+			int y2 = edges.get(i).getY2();
+		
+			g.drawLine(x1,y1,x2,y2);
+			g.drawLine(x1-1,y1,x2-1,y2);
+			g.drawLine(x1+2,y1,x2+2,y2);
+
+			g.drawLine(x1+1,y1,x2+1,y2);
+
+		}
+		
+	
+	
 	}
 
 

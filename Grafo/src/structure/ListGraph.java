@@ -121,7 +121,7 @@ public class ListGraph<T> implements Graph<T>{
 
 
 	@Override
-	public void addEdge(T n1, T n2, int weight) {
+	public void addEdge(T n1, T n2, int weight)   {
 		
 		if (isNode(n1) && isNode(n2)) {
 
@@ -146,6 +146,9 @@ public class ListGraph<T> implements Graph<T>{
 
 			} else {
 
+
+			//	Edge<T> e = new Edge<>(searchNode(n1), searchNode(n2), weight);
+			//	edges.add(e);
 				int n = 0;
 
 				while (n < 2) {
