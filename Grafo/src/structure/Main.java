@@ -31,7 +31,7 @@ public class Main {
 	private Algorithms menu;
 	private String actualGraph;
 	private ArrayList<EdgeView> edgesXY;
-	
+	private int c;
 	
 	public Main() throws Exception
 	{
@@ -47,32 +47,37 @@ public class Main {
 		readNodes();
 		readEdges();
 
-		ArrayList<String> g = menu.BFS(list, "Berlin");
-		for(int i = 0; i<g.size();i++)
-		{
-			System.out.println(g.get(i));
-		}
-		
-		
-		
+
+		c = 0;
 	}
 	
 	//opcion 0 DFS
 	//opcion 1 BFS
-	//opcion 0 List
-	//opcion 1 Graph
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<String> getAllCities(int opcion, int graph, String origen ) throws NodeNotFoundException
 	{
-		ArrayList<String> listM = new ArrayList<>();
-		System.out.println(origen);
-		listM = menu.BFS((Graph) list, "Berlin");
-
-		for(int i = 0; i<listM.size(); i++)
+		
+		c++;
+		
+		System.out.println(opcion)
+;		ArrayList<String>  g= new ArrayList<String>();
+		if (opcion == 0)
 		{
-			System.out.println(listM.get(i));
-		}		return listM;
+		 g = menu.BFS(list, origen);
+		}
+		else 
+		{
+			if(c<2)
+			{
+
+				 g = menu.DFS(list, origen);
+			}else {
+				g = menu.BFS(list,origen);
+			}
+				 }
+		
+			return g;
 	}
 	
 	public void changeGraphRepresentation()

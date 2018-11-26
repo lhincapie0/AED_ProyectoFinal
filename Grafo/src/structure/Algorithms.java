@@ -61,7 +61,7 @@ public class Algorithms<T> {
 
 	public ArrayList<T> DFS(Graph<T> graph, T startNode) throws NodeNotFoundException   {
 
-	if (graph.isNode(startNode)) {
+		if (graph.isNode(startNode)) {
 
 			ArrayList<T> array = new ArrayList<T>();
 			graph.searchNode(startNode).setVisited(true);

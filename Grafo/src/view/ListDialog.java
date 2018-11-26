@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import Exception.NodeNotFoundException;
 
@@ -84,8 +86,13 @@ public class ListDialog extends JDialog implements ActionListener{
 		citiesList = new JList<String>(listModel);
 		citiesList.setFont(font);
 
+		
+		JPanel p = new JPanel();
+		p.setLayout(new BorderLayout());
+		p.add(citiesList,BorderLayout.CENTER);
+		p.add(new JScrollPane(citiesList));
 		this.add(panel1,BorderLayout.NORTH);		
-		this.add(citiesList,BorderLayout.CENTER);
+		this.add(p,BorderLayout.CENTER);
 	}
 
 
@@ -103,6 +110,7 @@ public class ListDialog extends JDialog implements ActionListener{
 			String cityh = cities[city];
 			
 			try {
+				listModel.removeAllElements();
 				ArrayList<String> c = mainWindow.getList(busq, graf, cityh);
 				for(int i = 0; i<c.size();i++)
 				{

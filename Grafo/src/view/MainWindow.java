@@ -62,8 +62,7 @@ public class MainWindow extends JFrame {
 	public ArrayList<String> getList(int type, int graph, String origen) throws NodeNotFoundException
 	{
 		ArrayList<String> list =main.getAllCities(type, graph, origen);
-		System.out.println(list.get(0));
-		System.out.println(list.get(0));
+		
 		return list;
 	}
 	
