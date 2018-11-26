@@ -13,6 +13,7 @@ import structure.AuxDijkstra;
 import structure.Graph;
 import structure.ListGraph;
 import structure.MatrixGraph;
+import structure.Node;
 
 
 
@@ -89,14 +90,21 @@ public class Main {
 	 * @param none
 	 * @return none
 	 */
+	@SuppressWarnings("unchecked")
 	public void readNodes() throws IOException
 	{
 
-		BufferedReader bf = new BufferedReader(new FileReader(new File("Data/Cities")));
+		BufferedReader bf = new BufferedReader(new FileReader(new File("Data/CitiesXY")));
 		String city;
 		while((city = bf.readLine())!=null) {
-			matrix.addNode(city);
-			list.addNode(city);
+			
+			String[] data = city.split(",");
+			String name = data[0];
+			int x = Integer.parseInt(data[1]);
+			int y = Integer.parseInt(data[2]);
+
+			matrix.addNodeXY(name,x,y);
+			list.addNodeXY(name,x,y);
 		}			
 		
 		bf.close();
@@ -140,28 +148,46 @@ public class Main {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Node<String>> getNodesData()
+	{
+		ArrayList<Node<String>> nodes = new ArrayList<Node<String>>() ;
+		
+		if(actualGraph == MATRIX)
+		{
+			nodes = matrix.getNodes1();
+		}
+		else
+		{
+			nodes = list.getNodes1();
+		}
+		
+		return nodes;
+	}
 	
 	
-	
-	public ArrayList<String> calculateShortestPath(String origen, String destiny) throws Exception
+	public List<String> calculateShortestPath(String origen, String destiny) throws Exception
 	{
 		AuxDijkstra<Integer,List<String>> path;
-		ArrayList<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<String>();
 
 		if(actualGraph== LIST)
 		{
 			path = menu.DijkstraAlgorithm(list, origen, destiny);
+			names = path.getPath();
 		}else 
 		{
 			path = menu.DijkstraAlgorithm(matrix, origen, destiny);
+			names = path.getPath();
 
 		}
 		
 
 		return names;
 	}
+
 	
-	public int calculateDistance(String origen, String destiny) throws Exception
+	public int getShortestDistance(String origen, String destiny) throws Exception
 	{
 		AuxDijkstra<Integer,List<String>> path;
 		

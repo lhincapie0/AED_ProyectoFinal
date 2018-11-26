@@ -8,12 +8,12 @@ import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import modelo.Main;
-
 public class MainWindow extends JFrame {
 	
 	
@@ -50,14 +50,48 @@ public class MainWindow extends JFrame {
 	}
 	
 	
+	
+	public void showMap() {
+		
+		MapDialog d = new MapDialog(this);
+		d.setVisible(true);
+		d.setLocationRelativeTo(this);
+	}
+	public String getShortestDistance(String origen, String destiny) throws Exception
+	{
+		int d = main.getShortestDistance(origen, destiny);
+		String distance = d+" ";
+		return distance;
+	}
+	
+	
+	public String[] calculateShortestPath(String origen, String destiny) throws Exception
+	{
+		List<String> path = main.calculateShortestPath(origen, destiny);
+		String[] p = new String[path.size()];
+		for(int i = 0; i<path.size();i++)
+		{
+			p[i] = path.get(i);
+			System.out.println("?????" + path.get(i));
+		}
+		
+		return p;
+	}
+	
 	public void showRoutes()
 	{
-		System.out.println("shit");
 		RoutesDialog d = new RoutesDialog(this);
 		d.setVisible(true);
 		d.setLocationRelativeTo(this);	
 	}
 	
+	
+	public void calculatePath()
+	{
+		PathDialog d = new PathDialog(this);
+		d.setVisible(true);
+		d.setLocationRelativeTo(this);	
+	}
 	
 	public void changeGraphRepresentation()
 	{

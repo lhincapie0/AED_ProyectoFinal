@@ -135,7 +135,7 @@ public class RoutesDialog extends JDialog implements ActionListener {
 					actualIndex = cities.getSelectedIndex();
 					System.out.println(actualCity);  
 					System.out.println(actualIndex);
-					//ventana.mostrarJugadores(seleccionActual);
+				
 				}
 			
 				
@@ -190,7 +190,7 @@ public class RoutesDialog extends JDialog implements ActionListener {
 			mainWindow.changeGraphRepresentation();
 			String actual = mainWindow.getGraphRepresentation();
 			actualGraphTxt.setText(actual);
-			listModel.addElement(actual);
+			
 			
 		}
 		

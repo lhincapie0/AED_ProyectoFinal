@@ -26,10 +26,7 @@ public class Algorithms<T> {
 	}
 	
 	
-	public static void main(String[] args) throws Exception
-	{
-		Algorithms m = new Algorithms();
-	}
+	
 
 	
 	public ArrayList<T> BFS(Graph<T> graph, T startNode) throws NodeNotFoundException   {
@@ -118,9 +115,7 @@ public class Algorithms<T> {
 				}
 			}
 		}
-		for (T aux: table.keySet()) {
-			System.out.println(aux+" : "+table.get(aux).distance+" : "+table.get(aux).path);
-		}
+		
 		ArrayList<T>path=new ArrayList<T>();
 		T current1=end;
 		while(current1!=null) {
@@ -167,9 +162,7 @@ public class Algorithms<T> {
 			}
 		}
 		
-		for (T aux: table.keySet()) {
-			System.out.println(aux+" : "+table.get(aux).distance+" : "+table.get(aux).path);
-		}
+		
 		
 		ArrayList<T>path=new ArrayList<T>();
 		T current1=end;

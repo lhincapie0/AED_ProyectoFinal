@@ -8,10 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 public class MenuPanel extends JPanel implements ActionListener{
@@ -25,8 +28,9 @@ public class MenuPanel extends JPanel implements ActionListener{
 	private JButton mapaBut;
 	private JButton rutasBut;
 	private JButton planificarBut;
-
 	
+
+
 	
 	public MenuPanel(MainWindow mainWindow)
 	{
@@ -49,7 +53,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 	    border.setTitleColor(colorLetra);
 	    
 	  
-	    		
+	   
 
 
 	    mapaBut = new JButton("Ver mapa ferroviario");
@@ -85,7 +89,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		
 		if(command.getActionCommand().equals(MAPA))
 		{
-	
+			mainWindow.showMap();
 		}
 	
 		if(command.getActionCommand().equals(RUTAS))
@@ -96,7 +100,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		
 		if(command.getActionCommand().equals(PLANIFICAR))
 		{
-			
+			mainWindow.calculatePath();
 		}
 	}
 }

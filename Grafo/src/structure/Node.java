@@ -5,11 +5,21 @@ public class Node<T> {
 	private T value;
 	private boolean visited;
 	
+	
+	private int x;
+	private int y;
+	
 	public Node(T value)
 	{
 		this.value = value;
 	}
 	
+	public Node(T value, int x,int y)
+	{
+		this.value = value;
+		this.x = x;
+		this.y = y;
+	}
 	
 	public T getValue()
 	{
@@ -31,4 +41,13 @@ public class Node<T> {
 		this.visited = visited;
 	}
 
+	public int getX()
+	{
+		return x;
+	}
+	
+	public int getY()
+	{
+		return y;
+	}
 }

@@ -87,6 +87,38 @@ public class ListGraph<T> implements Graph<T>{
 			}
 		}
 	}
+	
+	public void addNodeXY(T node, int x, int y) {
+		
+		boolean founded = false;
+		
+		//We verify that the node doesnt already exist
+		
+		for(int i = 0;i<nodes.size() && !founded; i++) {
+			if(nodes.get(i).get(0).getValue().equals(node))
+			{
+				founded = true;
+			}
+		}
+		
+		//If the node wasn´t found we add the new node to the arrayList of nodes, creating a new LinkedList to save its adjacency nodes
+		if(!founded)
+		{
+			LinkedList<Node<T>> list = new LinkedList<Node<T>>();
+			Node<T> newNode = new Node<T>(node, x,  y);
+			list.add(newNode);
+			nodes.add(list);
+		}
+		
+		if(isWeighted)
+		{
+			if(weights.get(node) == null)
+			{
+				weights.put(node, new Hashtable<T, Integer>());
+			}
+		}
+	}
+
 
 	@Override
 	public void addEdge(T n1, T n2, int weight) {
@@ -242,6 +274,16 @@ public class ListGraph<T> implements Graph<T>{
 		return nodesList;
 	}
 
+	
+	public ArrayList<Node<T>> getNodes1()
+	{
+		ArrayList<Node<T>> n = new ArrayList<Node<T>>();
+		for(int i = 0; i<nodes.size();i++)
+		{
+			n.add(nodes.get(i).get(0));
+		}
+		return n;
+	}
 	@Override
 	public ArrayList<Edge<T>> getEdges() {
 		if (isDirected) {
@@ -448,21 +490,7 @@ public class ListGraph<T> implements Graph<T>{
 	}
 	}
 	
-	public static void main(String[] args)
-	{
-		ListGraph<Integer> graph = new ListGraph<Integer>(false,false);
-		graph.addNode(1);
-		graph.addNode(2);
-		graph.addNode(3);
-		graph.addNode(4);
-		graph.addEdge(1, 4, 0);
-		graph.addEdge(3, 2, 0);
-		graph.addEdge(1, 2, 0);
-		
-	//	System.out.println(graph.getWeights().get(1).get(4));
-		System.out.println(graph.isNode(4));
-		
-	}
+	
 
 	
 }

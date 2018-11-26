@@ -76,6 +76,17 @@ public class MatrixGraph<T> implements Graph<T>{
 			size = nodes.size();
 		}
 	}
+	
+	public void addNodeXY(T node, int x, int y)
+	{
+		if(nodesMap.containsKey(node) == false)
+		{
+			Node<T> n = new Node<T>(node,x,y);
+			nodesMap.put(node,nodes.size());
+			nodes.add(n);
+			size = nodes.size();
+		}
+	}
 
 	@Override
 	public void addEdge(T node1, T node2, int weight) {
@@ -86,7 +97,6 @@ public class MatrixGraph<T> implements Graph<T>{
 			Node<T> n2 = searchNode(node2);
 		
 			
-			System.out.println(n1.getValue() +"  "+ n2.getValue());
 		int i1 = nodesMap.get(n1.getValue());
 		int i2 = nodesMap.get(n2.getValue());
 		Edge<T> edge = new Edge<T>(n1,n2, weight);
